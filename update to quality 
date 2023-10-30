@@ -1,0 +1,51 @@
+#include <opencv2/opencv.hpp>
+#include <opencv2/stitching.hpp>
+
+int main() {
+    cv::VideoCapture cap(0);  // Initialize the camera, 0 for the default camera, or specify the camera index
+
+    // Check if the camera is opened successfully
+    if (!cap.isOpened()) {
+        std::cerr << "Error: Could not open camera." << std::endl;
+        return -1;
+    }
+
+    // Define parameters for photo capture
+    int photo_width = 3840;  // Width of the captured photo (4K)
+    int photo_height = 1920; // Height of the captured photo (2:1 aspect ratio)
+
+    std::vector<cv::Mat> captured_frames;
+
+    // Capture a series of frames for the photo
+    for (int i = 0; i < 5; ++i) {  // Capture 5 frames (you can adjust this number)
+        cv::Mat frame;
+        cap >> frame;
+
+        // Resize the frame to the desired photo dimensions
+        cv::resize(frame, frame, cv::Size(photo_width, photo_height));
+
+        // Append the frame to the vector
+        captured_frames.push_back(frame);
+    }
+
+    // Release the camera
+    cap.release();
+
+    // Stitch the captured frames into a panorama
+    cv::Stitcher stitcher = cv::Stitcher::create();
+    cv::Mat panorama;
+    cv::Stitcher::Status status = stitcher.stitch(captured_frames, panorama);
+
+    if (status == cv::Stitcher::OK) {
+        // Save the stitched panorama as a 360° photo
+        cv::imwrite("360_photo.jpg", panorama);
+
+        // Display the 360° photo (you can use a GUI library for a more advanced user interface)
+        cv::imshow("360° Photo", panorama);
+        cv::waitKey(0);
+    } else {
+        std::cerr << "Error during stitching" << std::endl;
+    }
+
+    return 0;
+}
