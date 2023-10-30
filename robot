@@ -49,3 +49,27 @@ predicted_class = np.argmax(predictions)
 
 # Print the predicted class
 print(f"Predicted class: {predicted_class}")
+import tensorflow as tf
+from tensorflow import keras
+
+# ... (previous code for training the model)
+
+# Save the trained model
+model.save('path_to_save_model')
+
+# Now, let's assume you want to load the saved model and use it for predictions:
+
+# Load the saved model
+loaded_model = keras.models.load_model('path_to_save_model')
+
+# Load or prepare new data for prediction
+# For example, if you have new data for prediction:
+import numpy as np
+
+# Prepare the new data (similar to how you preprocessed the training data)
+new_data = np.array(...)  # Replace ... with your new data
+
+# Make predictions using the loaded model
+predictions = loaded_model.predict(new_data)
+
+# Handle the predictions as needed for your specific use case
