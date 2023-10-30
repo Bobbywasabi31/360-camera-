@@ -1,0 +1,24 @@
+import cv2
+import numpy as np
+
+# Capture a photo using the camera
+cap = cv2.VideoCapture(0)  # 0 represents the default camera
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Perform any necessary image processing here
+    # For simplicity, you can just save the captured frame
+    cv2.imwrite("captured_image.jpg", frame)
+    break
+
+cap.release()
+cv2.destroyAllWindows()
+
+# Stitch the captured images into a 360° panorama (requires more complex code)
+# You can use OpenCV's image stitching functions for this
+
+# Display the 360° footage or export it for viewing in 360° viewers
+# You may need to use a suitable library or framework for this
