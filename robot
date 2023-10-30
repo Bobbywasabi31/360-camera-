@@ -73,3 +73,32 @@ new_data = np.array(...)  # Replace ... with your new data
 predictions = loaded_model.predict(new_data)
 
 # Handle the predictions as needed for your specific use case
+import tensorflow as tf
+from tensorflow import keras
+
+# ... (previous code for loading the saved model)
+
+# Load or prepare new data for prediction
+# For example, if you have new data for prediction:
+import numpy as np
+
+# Prepare the new data (similar to how you preprocessed the training data)
+new_data = np.array(...)  # Replace ... with your new data
+
+# Make predictions using the loaded model
+predictions = loaded_model.predict(new_data)
+
+# Handle the predictions as needed for your specific use case
+# For example, if it's a classification task, you can find the predicted classes:
+predicted_classes = np.argmax(predictions, axis=1)
+
+# Print the predicted classes
+print("Predicted classes:", predicted_classes)
+
+# You can also access the model's probabilities for each class (if it's a classification task):
+class_probabilities = keras.activations.softmax(predictions, axis=1)
+
+# Print the class probabilities
+print("Class probabilities:", class_probabilities)
+
+# You can then use the predicted classes or probabilities for further analysis or actions in your application.
