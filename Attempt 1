@@ -40,7 +40,7 @@ int main() {
         // Save the stitched panorama as a 360° photo
         cv::imwrite("360_photo.jpg", panorama);
 
-        // Display the 360° photo
+        // Display the 360° photo (you can use a GUI library for a more advanced user interface)
         cv::imshow("360° Photo", panorama);
         cv::waitKey(0);
     } else {
