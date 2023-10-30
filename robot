@@ -26,3 +26,26 @@ model.fit(x_train, y_train, epochs=5)
 # Evaluate the model
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
 print(f"\nTest accuracy: {test_acc*100:.2f}%")
+import tensorflow as tf
+from tensorflow import keras
+
+# Load the trained model (you can use the saved model from the previous code)
+model = keras.models.load_model('path_to_your_saved_model')
+
+# Load or prepare new data for prediction
+# For example, if you have a new image for classification:
+import numpy as np
+from PIL import Image
+
+# Load the image and preprocess it (similar to training data preprocessing)
+image = Image.open('path_to_your_image.jpg')
+image = np.array(image) / 255.0  # Normalize the image data
+
+# Make predictions
+predictions = model.predict(np.expand_dims(image, axis=0))
+
+# Get the predicted class (assuming it's a classification task)
+predicted_class = np.argmax(predictions)
+
+# Print the predicted class
+print(f"Predicted class: {predicted_class}")
